@@ -7,8 +7,10 @@
 - ✅ 完全本地化运行，无需联网（除首次下载模型）
 - ✅ 支持任意 Ollama 模型（qwen3、llama3、deepseek-coder 等）
 - ✅ GPU 加速推理（Apple Silicon / NVIDIA）
-- ✅ 一键启动脚本
+- ✅ 一键启动脚本（Bash + Python）
 - ✅ 代理服务器自动转换 Anthropic API ↔ Ollama API
+- ✅ **无需登录** - 自动跳过 OAuth 登录流程
+- ✅ **Python 管理器** - Mac 用户友好的交互式菜单
 
 ## 系统要求
 
@@ -20,14 +22,27 @@
 
 ## 🚀 快速开始
 
-### 方式一：一键启动（推荐）
+### 方式一：Python 管理器（Mac 推荐）
+
+```bash
+# 启动交互式菜单
+python3 claude_manager.py
+```
+
+菜单选项：
+- `[1]` 启动所有服务（Ollama + 代理 + Claude Code）
+- `[2]` 停止所有服务
+- `[3]` 查看服务状态
+- `[4]` 仅启动代理（供 Trae IDE 使用）
+
+### 方式二：Bash 脚本（Linux/Windows）
 
 ```bash
 # 启动所有服务（Ollama + 代理 + Claude Code）
 ./start-all.sh
 ```
 
-### 方式二：分步启动
+### 方式三：分步启动
 
 ```bash
 # 终端 1：启动 Ollama
@@ -40,7 +55,11 @@ ollama serve
 ### 关闭服务
 
 ```bash
-# 一键关闭所有服务
+# 使用 Python 管理器
+python3 claude_manager.py
+# 然后选择 [2] 停止所有服务
+
+# 或使用 Bash 脚本
 ./stop-all.sh
 ```
 
@@ -91,10 +110,14 @@ ANTHROPIC_MODEL=qwen3:7b
 .
 ├── bin/claude-haha          # Claude Code 入口脚本
 ├── src/                      # 源码（已修改支持 Ollama）
+│   └── utils/auth.ts         # 认证逻辑（跳过本地模型登录）
 │   └── utils/model/validateModel.ts  # 模型验证逻辑
 ├── .env                      # 环境变量配置
 ├── ollama_proxy.py           # API 代理服务器
-├── start-claude.sh           # 一键启动脚本
+├── claude_manager.py         # Python 项目管理器 ⭐ 新增
+├── start-all.sh              # 完整启动脚本
+├── start-claude.sh           # 快速启动脚本
+├── stop-all.sh               # 停止脚本
 └── README.md                 # 本文件
 ```
 
