@@ -18,7 +18,35 @@
 - Ollama
 - 8GB+ 内存（推荐 16GB+）
 
-## 快速开始
+## 🚀 快速开始
+
+### 方式一：一键启动（推荐）
+
+```bash
+# 启动所有服务（Ollama + 代理 + Claude Code）
+./start-all.sh
+```
+
+### 方式二：分步启动
+
+```bash
+# 终端 1：启动 Ollama
+ollama serve
+
+# 终端 2：启动 Claude Code
+./start-claude.sh
+```
+
+### 关闭服务
+
+```bash
+# 一键关闭所有服务
+./stop-all.sh
+```
+
+---
+
+## 📖 详细安装步骤
 
 ### 1. 安装 Ollama
 
@@ -40,16 +68,12 @@ ollama pull qwen3:14b
 ollama pull qwen3:7b
 ```
 
-### 3. 启动 Ollama 服务
+### 3. 配置模型
 
+编辑 `.env` 文件：
 ```bash
-ollama serve
-```
-
-### 4. 启动 Claude Code
-
-```bash
-./start-claude.sh
+# 切换模型
+ANTHROPIC_MODEL=qwen3:7b
 ```
 
 ## 配置
