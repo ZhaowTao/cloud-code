@@ -101,6 +101,13 @@ export function isAnthropicAuthEnabled(): boolean {
   // --bare: API-key-only, never OAuth.
   if (isBareMode()) return false
 
+  // Local Ollama/LocalAI mode: skip OAuth if using local model via proxy
+  // Detected by checking if ANTHROPIC_BASE_URL points to localhost
+  const baseUrl = process.env.ANTHROPIC_BASE_URL
+  if (baseUrl && (baseUrl.includes('localhost') || baseUrl.includes('127.0.0.1'))) {
+    return false
+  }
+
   // `claude ssh` remote: ANTHROPIC_UNIX_SOCKET tunnels API calls through a
   // local auth-injecting proxy. The launcher sets CLAUDE_CODE_OAUTH_TOKEN as a
   // placeholder iff the local side is a subscriber (so the remote includes the
